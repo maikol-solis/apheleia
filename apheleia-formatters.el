@@ -189,6 +189,11 @@
                          sh-basic-offset)
                         (t 4)))))
               "-"))
+    (styler . ("Rscript" "--vanilla" "-e"
+               (concat
+                "options(styler.quiet=TRUE);"
+                "styler::style_file(commandArgs(trailingOnly=TRUE))")
+               filepath))
     (rufo . ("rufo" "--filename" filepath "--simple-exit"))
     (stylua . ("stylua" "-"))
     (rustfmt . ("rustfmt" "--quiet" "--emit" "stdout"))
@@ -467,8 +472,8 @@ and then write the formatted output back to the remote machine. Note some
 features of `apheleia' (such as `file' in `apheleia-formatters') is not
 compatible with this option and formatters relying on them will crash."
   :type '(choice (const :tag "Run the formatter on the local machine" local)
-                 (const :tag "Run the formatter on the remote machine" remote)
-                 (const :tag "Disable formatting for remote buffers" cancel))
+          (const :tag "Run the formatter on the remote machine" remote)
+          (const :tag "Disable formatting for remote buffers" cancel))
   :group 'apheleia)
 
 (defvar-local apheleia--current-process nil
